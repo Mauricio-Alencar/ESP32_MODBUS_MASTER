@@ -64,8 +64,9 @@ BOOL MBEventReadCoils( UCHAR ucSlaveAddress, UCHAR * ucBufferCoils, USHORT usNum
         	 * Verifica se o primeiro bit de ucBufferCoils[0] é verdadeiro ou falso;
         	 */
            statebit = ((ucBufferCoils[0] & (1<<0)) == 1);
-           pinMode( LED, OUTPUT );
-           digitalWrite( LED, statebit );  
+           if (DEBUG_ESP32) ESP_LOGI(TAG,"valor do coil 0: %d", statebit[0]);
+           //pinMode( LED, OUTPUT );
+           //digitalWrite( LED, statebit );  
         }
     } 
     return TRUE;
@@ -87,16 +88,17 @@ void mb_task(void *pvParameters)
     while(1)
     {
         /**
-     * Realiza a leitura de 2 Coils a partir do endereço 0x01 do slave 0x0A;
+     * Realiza a leitura de 2 Coils a partir do endereço 0x01 do slave 0x01;
      * Aguarda o retorno da mensagem (enviada do Slave para o Master) durante 83ms;
      * O Timeout deverá ser maior que 60ms;
      */
-    if( !MBReadCoils(MB_SLAVE0_ADDRESS, 0x01, 2, (TIMEOUT_1MS*83)) )
+    if( !MBReadCoils(MB_SLAVE0_ADDRESS, 0x01, 2, (TIMEOUT_1MS*100)) )
     {
         //timeout...
+        if (DEBUG_ESP32) ESP_LOGI(TAG,"timeout de req para slave");
     }
     
-    vTaskDelay(200 / portTICK_PERIOD_MS);
+    vTaskDelay(2000 / portTICK_PERIOD_MS);
 
     }
 }

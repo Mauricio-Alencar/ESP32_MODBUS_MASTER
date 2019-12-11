@@ -31,8 +31,6 @@
 
 #include "cJSON.h"
 
-#include "ESP32_ModbusRTU_Slave.h"
-
 #include "mb_config.h"
 #include "mb_serial.h"
 #include "mb_timer.h"

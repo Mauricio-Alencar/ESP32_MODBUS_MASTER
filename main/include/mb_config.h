@@ -17,19 +17,16 @@
 #if defined(__ESP32__)
     #define UART1
     //#define UART2 
-    //#define MB_RS485PIN_SET()   do{DDRE |= (1<<3); PORTE |= (1<<3);}while(0)
-    //#define MB_RS485PIN_RESET() do{DDRE |= (1<<3); PORTE &= ~(1<<3);}while(0)
 
 #elif defined(__STM32__) 
     //#define UART0
     //#define UART1 
     #define UART2
-    //#define MB_RS485PIN_SET()   do{DDRD |= (1<<6); PORTD |= (1<<6); /* DDRB |= (1<<5); PORTB |= (1<<5);*/}while(0)
-    //#define MB_RS485PIN_RESET() do{DDRD |= (1<<6); PORTD &= ~(1<<6);/*DDRB |= (1<<5); PORTB &= ~(1<<5);*/}while(0)
+
 #endif
 
  /* ----------------------- PORT --------------------------------------------*/
-#define __delay1ms()                vTaskDelay(1 / portTICK_PERIOD_MS) 
+#define __delay1ms()                 vTaskDelay(1 / portTICK_PERIOD_MS) 
 #define TIMEOUT_1MS                  1
 //#define ENTER_CRITICAL_SECTION_MB()   cli() 
 //#define EXIT_CRITICAL_SECTION_MB()    sei() 
