@@ -227,7 +227,7 @@ MBMasterFunc01ReadCoils(  UCHAR  ucSlaveAddress, 	//MB_Slave Address
 
         for(i = 0; i < sizeof(frame); ++i)		    // Envia pela Uart o frame de leitura dos Coils
         {
-            MBUartRxSend( frame[i] );
+            MBUartTxSend( frame[i] );
         }
 
         MBUartRXEnable();							// Habilita a recepção Serial
@@ -270,7 +270,7 @@ MBMasterFunc03ReadHolding(
 
         for(i = 0; i < sizeof(frame); ++i)		    // Envia pela Uart o frame de leitura dos Coils
         {
-            MBUartRxSend( frame[i] );
+            MBUartTxSend( frame[i] );
         }
 
 		MBUartRXEnable();
@@ -312,7 +312,7 @@ MBMasterFunc06WriteSingleRegister(
 
         for(i = 0; i < sizeof(frame); ++i)		   
         {
-            MBUartRxSend( frame[i] );
+            MBUartTxSend( frame[i] );
         }
 
 		MBUartRXEnable();
@@ -368,7 +368,7 @@ MBMasterFunc16WriteMultipleRegisters(
 
         for(y = 0; y < 7 + i ; ++y)
         {
-            MBUartRxSend( frame[y] );
+            MBUartTxSend( frame[y] );
         }
 
         MBUartRXEnable();

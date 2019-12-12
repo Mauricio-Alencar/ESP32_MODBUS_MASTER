@@ -64,7 +64,7 @@ BOOL MBEventReadCoils( UCHAR ucSlaveAddress, UCHAR * ucBufferCoils, USHORT usNum
         	 * Verifica se o primeiro bit de ucBufferCoils[0] é verdadeiro ou falso;
         	 */
            statebit = ((ucBufferCoils[0] & (1<<0)) == 1);
-           if (DEBUG_ESP32) ESP_LOGI(TAG,"valor do coil 0: %d", statebit[0]);
+           if (DEBUG_ESP32) ESP_LOGI(TAG,"valor do coil 0: %d", statebit);
            //pinMode( LED, OUTPUT );
            //digitalWrite( LED, statebit );  
         }
