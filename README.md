@@ -1,6 +1,6 @@
 # MODBUS_MASTER RTOS LIBRARY
 
-Repositório aberto para biblioteca MODBUS RTU MASTER em sobre Freertos.
+Repositório aberto para biblioteca MODBUS RTU MASTER sobre Freertos.
 Liberada sobre licença GNU de software livre. 
 
 ## PORT PARA ESP32 (SDK-IDF V3.3+)
