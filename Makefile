@@ -3,7 +3,7 @@
 # project subdirectory.
 #
 
-PROJECT_NAME := esp_timer_example
+PROJECT_NAME := ESP_MODBUS_RTU_MASTER
 
 include $(IDF_PATH)/make/project.mk
 
