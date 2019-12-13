@@ -1,3 +1,25 @@
+/*
+ * Autor: Maurício Alencar
+ * Exemplo de codigo main para uso da biblioteca Modbus RTU MASTER
+ * Site: coldpack.com.br
+ *
+ * Biblioteca Modbus RTU: MASTER
+ * Copyright (C) 2019 Coldpack Mechatronics Systems <mauricioalencarf@gmail.com.br>
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+*/
+
 #include <stdio.h>
 #include <stdint.h>
 #include <stddef.h>
@@ -324,7 +346,7 @@ MBMasterFunc06WriteSingleRegister(
 
 /* ######################################################################## */
 /* MB_FUNCTION16_WRITE_MULTIPLE_REGISTERS:
- * Função Modbus Master responsável pela solicitação de leitura dos Holding Registers
+ * Função Modbus Master responsável pela escrita de multiplos registradores
  * MB Master -> 0x16-WRITE_MULTIPLE_REGISTER -> MB Slave
  */
 
