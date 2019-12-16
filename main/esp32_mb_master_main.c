@@ -279,14 +279,14 @@ void mb_task(void *pvParameters)
     frame[5] = (UCHAR) (counter3>>8);
 
         //Endereço do Slave, Endereço inicial (offset), buffer, número de registradores, timeout;
-    if( !MBWriteMultipleRegisters( MB_SLAVE1_ADDRESS, 5, frame, 3, (TIMEOUT_1MS*100)  ))
+    if( !MBWriteMultipleRegisters( MB_SLAVE10_ADDRESS, 5, frame, 3, (TIMEOUT_1MS*100)  ))
     {
         //timeout...
         if (DEBUG_ESP32) ESP_LOGI(TAG,"timeout de req para slave");
     }  
 
     // ----------------------------- DELAY PARA CADA REQ AO SLAVE -------------------------
-    vTaskDelay(2000 / portTICK_PERIOD_MS);
+    vTaskDelay(5000 / portTICK_PERIOD_MS);
 
     }
 }

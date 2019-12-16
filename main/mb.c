@@ -428,7 +428,7 @@ void
 MBInit( void )
 {
     MBUartInit();
-    MBUartIE();
+    //MBUartIE();
     MBTimerInit();
 }
 

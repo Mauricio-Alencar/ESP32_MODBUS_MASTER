@@ -48,7 +48,7 @@
 #endif
 
  /* ----------------------- PORT --------------------------------------------*/
-#define __delay1ms()                 vTaskDelay(1 / portTICK_PERIOD_MS) 
+#define __delay1ms()                 vTaskDelay(5 / portTICK_PERIOD_MS) 
 #define TIMEOUT_1MS                  1
 //#define ENTER_CRITICAL_SECTION_MB()   cli() 
 //#define EXIT_CRITICAL_SECTION_MB()    sei() 
