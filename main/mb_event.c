@@ -13,11 +13,11 @@ static volatile BOOL MBEventStatus = FALSE;
 BOOL
 MBEventPost( BOOL Event )
 {   //ENTER_CRITICAL_SECTION_MB( );
-    MBUartRXDisable();
+    //MBUartRXDisable();
 
     MBEventStatus = Event;
 
-    MBUartRXEnable();
+    //MBUartRXEnable();
     //EXIT_CRITICAL_SECTION_MB( );
     return TRUE;
 }

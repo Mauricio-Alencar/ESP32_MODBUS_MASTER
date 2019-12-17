@@ -48,8 +48,10 @@
 #endif
 
  /* ----------------------- PORT --------------------------------------------*/
-#define __delay1ms()                 vTaskDelay(5 / portTICK_PERIOD_MS) 
-#define TIMEOUT_1MS                  1
+//timeout deve ser para 10ms, pois geralmente os ticks de RTOS trabalhando em 100hz.
+#define __delay10ms()                 vTaskDelay( 10 / portTICK_PERIOD_MS) 
+#define TIMEOUT_10MS                  1
+
 //#define ENTER_CRITICAL_SECTION_MB()   cli() 
 //#define EXIT_CRITICAL_SECTION_MB()    sei() 
 

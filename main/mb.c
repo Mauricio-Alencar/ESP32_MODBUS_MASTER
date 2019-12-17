@@ -67,8 +67,9 @@ struct SMBException
   UCHAR MBExceptionStatus;
   UCHAR MBExceptionCode;
 } sMBException;
-    
-    
+
+static const char *TAG = "MB_PROCESS";    
+
 #ifdef MB_MASTER
 
 /* ######################################################################## */
@@ -92,8 +93,9 @@ MBMasterEvent( void  )
         * Para vários Slaves comente o if a seguir, pois assim, qualquer SlaveID será tratado;
         */
         //if( (mb_buffer[0] == MB_SLAVE_ADDRESS) || (mb_buffer[0] == MB_SLAVE1_ADDRESS) || (mb_buffer[0] == MB_SLAVE2_ADDRESS) )
-		{
 
+        if (DEBUG_MB) ESP_LOGI(TAG,"RECEBI CALLBACK , TRATANDO!");
+		{
 			/* MB_FUNCTION01_READ_COILS */	
 #if ENABLE_MB_FUNCTION01_READ_COILS >0
 
@@ -442,7 +444,7 @@ MBReadCoils(  UCHAR  ucSlaveAddress, USHORT usStartAddress, USHORT usNumberOfCoi
 
     do
     {
-        __delay1ms();
+        __delay10ms();
         if(MB()) 
             return TRUE; 
     }while(usTimeout--);
@@ -458,7 +460,7 @@ MBReadRegisters( UCHAR ucSlaveAddress, USHORT usStartAddress, USHORT usNumberOfP
     MBMasterFunc03ReadHolding(ucSlaveAddress, usStartAddress, usNumberOfPoints);
     do
     {
-        __delay1ms();
+        __delay10ms();
         if(MB())
             return TRUE;
     } while(usTimeout--);
@@ -475,7 +477,7 @@ MBWriteSingleRegister( UCHAR  ucSlaveAddress, USHORT usStartAddress, USHORT usWr
     MBMasterFunc06WriteSingleRegister(ucSlaveAddress, usStartAddress, usWriteRegister);
     do
     {
-        __delay1ms();
+        __delay10ms();
         if(MB())
             return TRUE;
     } while(usTimeout--);
@@ -491,7 +493,7 @@ MBWriteMultipleRegisters( UCHAR  ucSlaveAddress, USHORT usStartAddress, UCHAR * 
     MBMasterFunc16WriteMultipleRegisters( ucSlaveAddress, usStartAddress, usWriteRegister, ucNumberOfbytes );
     do
     {
-        __delay1ms();
+        __delay10ms();
         if(MB())
             return TRUE;
     } while(usTimeout--);

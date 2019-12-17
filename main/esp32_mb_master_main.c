@@ -82,13 +82,12 @@ void mb_task(void *pvParameters);
  *
  * @return     { verdadeiro }
  */
-
 /*
 BOOL MBEventReadCoils( UCHAR ucSlaveAddress, UCHAR * ucBufferCoils, USHORT usNumberOfCoils ) {
    
     CHAR statebit; 
    
-    if( ucSlaveAddress == MB_SLAVE0_ADDRESS )
+    if( ucSlaveAddress == MB_SLAVE10_ADDRESS )
     {     
         if(usNumberOfCoils >= 1)
         {
@@ -99,8 +98,8 @@ BOOL MBEventReadCoils( UCHAR ucSlaveAddress, UCHAR * ucBufferCoils, USHORT usNum
         }
     } 
     return TRUE;
-}
-*/
+}*/
+
 
 // ----------------------------------------------- CALL BACK FUNC CODE 03 ---------------------------------------------
 /**
@@ -117,7 +116,7 @@ BOOL MBEventReadRegisters( UCHAR ucSlaveAddress,UCHAR * ucRegHolding, USHORT  us
 {
     static USHORT value;
 
-    if( ucSlaveAddress == MB_SLAVE0_ADDRESS )
+    if( ucSlaveAddress == MB_SLAVE10_ADDRESS )
     { 
         for(USHORT i = 0 ; i < usNumberOfRegisters; ++i)
         {
@@ -149,7 +148,6 @@ BOOL MBEventReadRegisters( UCHAR ucSlaveAddress,UCHAR * ucRegHolding, USHORT  us
  *
  * @return     { true }
  */
-
 /*
 BOOL MBEventWriteRegister( UCHAR ucSlaveAddress, USHORT usStartAddress, USHORT usValue )
 {
@@ -160,7 +158,7 @@ BOOL MBEventWriteRegister( UCHAR ucSlaveAddress, USHORT usStartAddress, USHORT u
         // Endereço 3 
         if( 3 == usStartAddress )
         {
-            if (DEBUG_ESP32) ESP_LOGI(TAG,"valor do reg3 no slave 1: %u", (USHORT) value);     
+            if (DEBUG_ESP32) ESP_LOGI(TAG,"valor do reg3 no slave 1: %u", (USHORT) usValue);     
         }
     } 
     else if( ucSlaveAddress == MB_SLAVE10_ADDRESS )
@@ -168,12 +166,12 @@ BOOL MBEventWriteRegister( UCHAR ucSlaveAddress, USHORT usStartAddress, USHORT u
         // Endereço 4
         if( 4 == usStartAddress )
         {
-            if (DEBUG_ESP32) ESP_LOGI(TAG,"valor do reg4 no slave 10: %u", (USHORT) value); 
+            if (DEBUG_ESP32) ESP_LOGI(TAG,"valor do reg4 no slave 10: %u", (USHORT) usValue); 
         }
     }
      return TRUE;
-}
-*/
+}*/
+
 
 // ----------------------------------------------- CALL BACK FUNC CODE 16 ---------------------------------------------
 /**
@@ -185,6 +183,7 @@ BOOL MBEventWriteRegister( UCHAR ucSlaveAddress, USHORT usStartAddress, USHORT u
  *
  * @return     { true }
  */
+
 BOOL MBEventWriteRegister( UCHAR ucSlaveAddress, USHORT usStartAddress, USHORT usValue )
 {
      return TRUE;
@@ -210,13 +209,14 @@ void mb_task(void *pvParameters)
      * Realiza a leitura de 2 Coils a partir do endereço 0x01 do slave 0x01;
      * Aguarda o retorno da mensagem (enviada do Slave para o Master) durante 100ms;
      * O Timeout deverá ser maior que 60ms sempre para 9600bps (tempo de resposta do slave no barramento);
-     *
-    if( !MBReadCoils(MB_SLAVE1_ADDRESS, 0x01, 2, (TIMEOUT_1MS*100)) )
+     */
+    /*
+    if( !MBReadCoils(MB_SLAVE10_ADDRESS, 0x01, 2, (TIMEOUT_10MS*10)) )
     {
         //timeout...
         if (DEBUG_ESP32) ESP_LOGI(TAG,"timeout de req para slave");
-    } */
-
+    } 
+    */
 
 
 
@@ -225,12 +225,13 @@ void mb_task(void *pvParameters)
     /**
       * Realiza a leitura de 2 registradores (4 bytes) a partir do endereço 1 do
       * slave MB_SLAVE1_ADDRESS. Os dados precisam ser recebidos em até 100ms;
-      *
-    if( !MBReadRegisters( MB_SLAVE1_ADDRESS, 1, 2, (TIMEOUT_1MS*100)  ))
+      */
+    /*
+    if( !MBReadRegisters( MB_SLAVE10_ADDRESS, 1, 2, (TIMEOUT_10MS*10)  ))
     {
         //Timeout...
         if (DEBUG_ESP32) ESP_LOGI(TAG,"timeout de req para slave");
-    }*/
+    } */
     
     
 
@@ -242,7 +243,7 @@ void mb_task(void *pvParameters)
     //Realiza a escrita de 1 registradores (2 bytes) a partir do endereço 3 do
     //slave MB_SLAVE1_ADDRESS. Os dados precisam ser recebidos em até 100ms;
     
-    if(!MBWriteSingleRegister( MB_SLAVE1_ADDRESS, 3, counter++, (TIMEOUT_1MS*100) ))
+    if(!MBWriteSingleRegister( MB_SLAVE1_ADDRESS, 3, counter++, (TIMEOUT_10MS*10) ))
     {
         //timeout...
         if (DEBUG_ESP32) ESP_LOGI(TAG,"timeout de req para slave");
@@ -252,7 +253,7 @@ void mb_task(void *pvParameters)
     //Realiza a escrita de 1 registradores (2 bytes) a partir do endereço 4 do
     //slave MB_SLAVE10_ADDRESS. Os dados precisam ser recebidos em até 100ms;
     
-    if(!MBWriteSingleRegister( MB_SLAVE10_ADDRESS, 4, counter, (TIMEOUT_1MS*100) ))
+    if(!MBWriteSingleRegister( MB_SLAVE10_ADDRESS, 4, counter, (TIMEOUT_10MS*10) ))
     {
         //timeout...
         if (DEBUG_ESP32) ESP_LOGI(TAG,"timeout de req para slave");
@@ -279,7 +280,7 @@ void mb_task(void *pvParameters)
     frame[5] = (UCHAR) (counter3>>8);
 
         //Endereço do Slave, Endereço inicial (offset), buffer, número de registradores, timeout;
-    if( !MBWriteMultipleRegisters( MB_SLAVE10_ADDRESS, 5, frame, 3, (TIMEOUT_1MS*100)  ))
+    if( !MBWriteMultipleRegisters( MB_SLAVE10_ADDRESS, 5, frame, 3, (TIMEOUT_10MS*10)  ))
     {
         //timeout...
         if (DEBUG_ESP32) ESP_LOGI(TAG,"timeout de req para slave");
@@ -310,10 +311,10 @@ void MBException( USHORT usExceptionCode ) {
 
 */
 
+
 BOOL MBEventReadCoils( UCHAR ucSlaveAddress, UCHAR * ucBufferCoils, USHORT usNumberOfCoils ) {
      return TRUE;
 }
-
 
 BOOL MBEventReadRegisters( UCHAR ucSlaveAddress,UCHAR * ucRegHolding, USHORT  usNumberOfPoints ) {
    return TRUE;  
