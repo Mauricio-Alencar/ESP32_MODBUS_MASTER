@@ -183,8 +183,8 @@ MBUartIE( void )
 void 
 MBTransmit_On_RS485( void )
 {
-    uart_set_rts(EX_UART_NUM, TRUE); 
-    vTaskDelay(5 / portTICK_PERIOD_MS);
+    uart_set_rts(EX_UART_NUM, FALSE); 
+    vTaskDelay(10 / portTICK_PERIOD_MS);
 }
 
 //função para controle de RESET no pino RTS do barramento rs485
@@ -200,6 +200,6 @@ MBReceive_On_RS485( void )
         uart_get_buffered_data_len(EX_UART_NUM , (size_t*) &lenght_tam);
     }
 
-    vTaskDelay(5 / portTICK_PERIOD_MS);
-    uart_set_rts(EX_UART_NUM, FALSE);
+    vTaskDelay(10 / portTICK_PERIOD_MS);
+    uart_set_rts(EX_UART_NUM, TRUE);
 }
