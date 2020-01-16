@@ -200,7 +200,9 @@ MBUartIE( void )
 void 
 MBTransmit_On_RS485( void )
 {
-    gpio_set_level(GPIO_CONTROL_RS485, TRUE); 
+    gpio_set_level(GPIO_CONTROL_RS485, TRUE);
+    
+    //delay para 3.5char de inicio do pacote, , RTOS em 1khz para aguentar delays de 5ms
     vTaskDelay(5 / portTICK_PERIOD_MS);
 }
 
@@ -217,6 +219,8 @@ MBReceive_On_RS485( void )
         uart_get_buffered_data_len(EX_UART_NUM , (size_t*) &lenght_tam);
     }
 
+    //delay de 3.5char para fim do pacote, RTOS em 1khz para aguentar delays de 5ms
     vTaskDelay(5 / portTICK_PERIOD_MS);
+
     gpio_set_level(GPIO_CONTROL_RS485, FALSE);
 }

@@ -135,8 +135,8 @@ BOOL MBEventReadRegisters( UCHAR ucSlaveAddress,UCHAR * ucRegHolding, USHORT  us
     }
 
     return TRUE;
-}
-*/
+}*/
+
 
 // ----------------------------------------------- CALL BACK FUNC CODE 06 ---------------------------------------------
 /**
@@ -211,12 +211,12 @@ void mb_task(void *pvParameters)
      * O Timeout deverá ser maior que 60ms sempre para 9600bps (tempo de resposta do slave no barramento);
      */
     /*
-    if( !MBReadCoils(MB_SLAVE10_ADDRESS, 0x01, 2, (TIMEOUT_10MS*10)) )
+    if( !MBReadCoils(MB_SLAVE10_ADDRESS, 0x01, 2, (TIMEOUT_10MS*20)) )
     {
         //timeout...
         if (DEBUG_ESP32) ESP_LOGI(TAG,"timeout de req para slave");
-    } 
-    */
+    } */
+    
 
 
 
@@ -231,8 +231,8 @@ void mb_task(void *pvParameters)
     {
         //Timeout...
         if (DEBUG_ESP32) ESP_LOGI(TAG,"timeout de req para slave");
-    } */
-    
+    } 
+    */
     
 
     // ----------------------- EXEMPLO PARA ESCREVER UNICO REGISTRADOR (FUNC 06) -----------------------
@@ -280,11 +280,13 @@ void mb_task(void *pvParameters)
     frame[5] = (UCHAR) (counter3>>8);
 
         //Endereço do Slave, Endereço inicial (offset), buffer, número de registradores, timeout;
-    if( !MBWriteMultipleRegisters( MB_SLAVE10_ADDRESS, 5, frame, 3, (TIMEOUT_10MS*10)  ))
+    if( !MBWriteMultipleRegisters( MB_SLAVE10_ADDRESS, 5, frame, 3, (TIMEOUT_10MS*10) ))
     {
         //timeout...
         if (DEBUG_ESP32) ESP_LOGI(TAG,"timeout de req para slave");
-    }  
+    } 
+    
+
 
     // ----------------------------- DELAY PARA CADA REQ AO SLAVE -------------------------
     vTaskDelay(5000 / portTICK_PERIOD_MS);
@@ -315,6 +317,7 @@ void MBException( USHORT usExceptionCode ) {
 BOOL MBEventReadCoils( UCHAR ucSlaveAddress, UCHAR * ucBufferCoils, USHORT usNumberOfCoils ) {
      return TRUE;
 }
+
 
 BOOL MBEventReadRegisters( UCHAR ucSlaveAddress,UCHAR * ucRegHolding, USHORT  usNumberOfPoints ) {
    return TRUE;  
